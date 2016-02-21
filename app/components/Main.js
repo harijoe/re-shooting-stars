@@ -1,7 +1,9 @@
 import React from 'react'
-import AddRepo from './AddRepo/AddRepo'
 import axios from 'axios'
 import {parameters} from '../utils/parameters'
+
+import AddRepo from './AddRepo/AddRepo'
+import Graph from './Graph/Graph'
 
 class Main extends React.Component {
   constructor(props) {
