@@ -1,5 +1,7 @@
-import React from 'react';
+import React from 'react'
 import AddRepo from './AddRepo/AddRepo'
+import axios from 'axios'
+import {parameters} from '../utils/parameters'
 
 class Main extends React.Component {
   constructor(props) {
@@ -8,7 +10,7 @@ class Main extends React.Component {
     this.githubClient = axios.create({
       baseURL: 'https://api.github.com/',
       timeout: 1000,
-      headers: {'Authorization': 'token b559dcd69ee7ac9553830372583b99313eb90184'}
+      headers: {'Authorization': 'token '+parameters.githubApiToken}
     });
     this.apiClient = axios.create({
       baseURL: 'http://vallini.io:8080/',
