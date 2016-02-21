@@ -10,11 +10,13 @@
   "license": "ISC",
   "dependencies": {
     "axios": "^0.8.1",
+    "chart.js": "^1.0.2",
     "firebase": "^2.3.2",
     "history": "^1.13.1",
     "lodash": "^4.5.0",
     "re-base": "^1.5.1",
     "react": "^0.14.3",
+    "react-chartjs": "^0.7.3",
     "react-dom": "^0.14.3",
     "react-router": "^1.0.1",
     "reactfire": "^0.5.1"

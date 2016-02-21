@@ -29,7 +29,7 @@ class Main extends React.Component {
             <AddRepo githubClient={this.githubClient} apiClient={this.apiClient} />
           </div>
           <div className="col-sm-8">
-            <h3>Graph</h3>
+            <Graph apiClient={this.apiClient} />
           </div>
         </div>
       </div>
