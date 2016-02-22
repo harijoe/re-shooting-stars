@@ -15,7 +15,7 @@ class RepoSelector extends React.Component {
 
   handleAddition(tag) {
     var tags = this.props.selectedRepos;
-    if (!_.some(this.props.repos, tag['text'])) {
+    if (-1 === this.props.repos.indexOf(tag)) {
       return;
     }
     tags.push({
