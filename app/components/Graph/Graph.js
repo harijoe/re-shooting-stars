@@ -10,6 +10,7 @@ class Graph extends React.Component {
     super(props);
     this.state = {
       selectedRepos: [],
+      selectedReposNormalized: [],
       data: {
         labels: _.rangeRight(-30),
         datasets: null,
@@ -26,7 +27,12 @@ class Graph extends React.Component {
     var newData = this.state.data;
     newData.datasets = [];
     var that = this;
-    _(this.state.selectedRepos).forEach(function (repo) {
+    if (0 === this.state.selectedReposNormalized.length) {
+      this.setState({loaded: false});
+
+      return;
+    }
+    _(this.state.selectedReposNormalized).forEach(function (repo) {
       that.fetchRepoData(repo, newData);
     });
   }
@@ -59,14 +65,20 @@ class Graph extends React.Component {
   }
 
   updateRepos(repos) {
-    this.setState({selectedRepos: repos});
+    var selectedReposNormalized = repos.map((e) => {
+      return e['text'];
+    });
+    this.setState({selectedRepos: repos, selectedReposNormalized}, () => {
+      this.refreshData();
+    });
   }
 
   render() {
     return <div>
       <h3>Graph</h3>
-      <RepoSelector repos={this.props.repos} updateRepos={this.updateRepos.bind(this)} selectedRepos={this.state.selectedRepos}/>
-      {this.state.loaded && <LineChart data={this.state.data} width="600" height="250" redraw/>}
+      <RepoSelector repos={this.props.repos} updateRepos={this.updateRepos.bind(this)}
+                    selectedRepos={this.state.selectedRepos}/>
+      {this.state.loaded && this.state.data.datasets.length >= 2 && <LineChart data={this.state.data} width="600" height="250" redraw/>}
     </div>
   }
 }
