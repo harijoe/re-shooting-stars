@@ -30,7 +30,7 @@ class Main extends React.Component {
     this.apiClient.get('watched_repositories').then(({data}) => {
       var repos = data['hydra:member'].map((e) => {
         return e['name'];
-      })
+      });
       this.setState({reposList: repos});
     })
   }
@@ -38,13 +38,19 @@ class Main extends React.Component {
   render() {
     return (
       <div className="main-container">
-        <nav className="navbar navbar-default" role="navigation">
-          <div className="col-sm-7 col-sm-offset-2" style={{marginTop: 15}}>
-          </div>
+        <nav className="navbar navbar-default text-center" role="navigation">
+            <h2>Github Trends</h2>
         </nav>
         <div className="container">
           <div className="col-sm-4">
             <AddRepo githubClient={this.githubClient} apiClient={this.apiClient}/>
+            <h3>Repos watched:</h3>
+            <p>{this.state.reposList.length} repos watched</p>
+            <ul>
+              {this.state.reposList.map((e) => {
+                return <li key={e}>{e}</li>
+              })}
+            </ul>
           </div>
           <div className="col-sm-8">
             <Graph repos={this.state.reposList} apiClient={this.apiClient}/>
