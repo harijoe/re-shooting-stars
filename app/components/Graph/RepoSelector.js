@@ -15,11 +15,13 @@ class RepoSelector extends React.Component {
 
   handleAddition(tag) {
     var tags = this.props.selectedRepos;
+    if (!_.some(this.props.repos, tag['text'])) {
+      return;
+    }
     tags.push({
       id: tags.length + 1,
       text: tag
     });
-    //this.setState({tags: tags});
     this.props.updateRepos(tags);
   }
 

@@ -32,9 +32,17 @@ class Graph extends React.Component {
 
       return;
     }
-    _(this.state.selectedReposNormalized).forEach(function (repo) {
-      that.fetchRepoData(repo, newData);
+    this.setState({loaded: false}, () => {
+      // Display some kind of graph loader here
+      var promises = [];
+      _(this.state.selectedReposNormalized).forEach(function (repo) {
+        promises.push(that.fetchRepoData(repo, newData));
+      });
+      Promise.all(promises).then(() => {
+        this.setState({loaded: true});
+      })
     });
+
   }
 
   setDataset(dataset, newData) {
@@ -43,7 +51,7 @@ class Graph extends React.Component {
   }
 
   fetchRepoData(repo, newData) {
-    this.props.apiClient.get('github_stars_measures?repository=' + repo)
+    return this.props.apiClient.get('github_stars_measures?repository=' + repo)
       .then(({data}) => {
         var datapoints = data['hydra:member'];
         datapoints = datapoints.map((e) => {
@@ -78,7 +86,7 @@ class Graph extends React.Component {
       <h3>Graph</h3>
       <RepoSelector repos={this.props.repos} updateRepos={this.updateRepos.bind(this)}
                     selectedRepos={this.state.selectedRepos}/>
-      {this.state.loaded && this.state.data.datasets.length >= 2 && <LineChart data={this.state.data} width="600" height="250" redraw/>}
+      {this.state.loaded && this.state.data.datasets.length >= 1 && <LineChart data={this.state.data} width="600" height="250" redraw/>}
     </div>
   }
 }
