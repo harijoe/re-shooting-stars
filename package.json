@@ -17,8 +17,11 @@
     "re-base": "^1.5.1",
     "react": "^0.14.3",
     "react-chartjs": "^0.7.3",
+    "react-dnd": "^2.1.2",
+    "react-dnd-html5-backend": "^2.1.2",
     "react-dom": "^0.14.3",
     "react-router": "^1.0.1",
+    "react-tag-input": "^2.2.2",
     "reactfire": "^0.5.1"
   },
   "devDependencies": {

@@ -1,16 +1,19 @@
 import React from 'react'
 import _ from 'lodash'
 
-var LineChart = require("react-chartjs").Line;
+import RepoSelector from './RepoSelector';
+
+import { Line as LineChart } from 'react-chartjs';
 
 class Graph extends React.Component {
   constructor(props) {
     super(props);
     this.state = {
-      selectedRepos: ['harijoe/cheerup', 'harijoe/weatherStation'],
+      selectedRepos: [],
       data: {
         labels: _.rangeRight(-30),
-        datasets: null
+        datasets: null,
+        loaded: false
       }
     }
   }
@@ -30,7 +33,7 @@ class Graph extends React.Component {
 
   setDataset(dataset, newData) {
     newData.datasets = newData.datasets.concat(dataset);
-    this.setState({data: newData});
+    this.setState({data: newData, loaded: true});
   }
 
   fetchRepoData(repo, newData) {
@@ -55,10 +58,15 @@ class Graph extends React.Component {
       })
   }
 
+  updateRepos(repos) {
+    this.setState({selectedRepos: repos});
+  }
+
   render() {
     return <div>
       <h3>Graph</h3>
-      {this.state.data.datasets && <LineChart data={this.state.data} width="600" height="250" redraw/>}
+      <RepoSelector repos={this.props.repos} updateRepos={this.updateRepos.bind(this)} selectedRepos={this.state.selectedRepos}/>
+      {this.state.loaded && <LineChart data={this.state.data} width="600" height="250" redraw/>}
     </div>
   }
 }
