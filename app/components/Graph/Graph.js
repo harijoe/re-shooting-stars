@@ -8,7 +8,7 @@ import { Line as LineChart } from 'react-chartjs';
 const chartOptions = {
   scaleShowGridLines: false,
   pointDot : false,
-  bezierCurve : true,
+  bezierCurve : false,
   multiTooltipTemplate: "<%= datasetLabel %>: <%= value %>",
   tooltipTemplate: "<%= datasetLabel %>: <%= value %>"
 };
@@ -73,7 +73,7 @@ class Graph extends React.Component {
         datapoints = datapoints.map((e) => {
           return parseInt(e['stars']);
         });
-        datapoints = _.rangeRight(0, 30 - datapoints.length, 0).concat(_(datapoints).reverse().value());
+        datapoints = _.rangeRight(0, 30 - datapoints.length, 0).concat(datapoints);
         var dataset = {
           label: repo,
           fillColor: "rgba(" + color.rgb + ",0.2)",
