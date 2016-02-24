@@ -10,12 +10,12 @@ class Main extends React.Component {
     super(props);
 
     this.githubClient = axios.create({
-      baseURL: 'https://api.github.com/',
+      baseURL: parameters.githubApiHost,
       timeout: 1000,
       headers: {'Authorization': 'token ' + parameters.githubApiToken}
     });
     this.apiClient = axios.create({
-      baseURL: 'http://vallini.io:8080/',
+      baseURL: parameters.homeApiHost,
       timeout: 1000
     });
 
